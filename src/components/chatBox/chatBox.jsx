@@ -1,5 +1,5 @@
 import React from "react";
-import {BsFillChatDotsFill} from "react-icons/bs";
+import {IoIosSend} from "react-icons/io";
 import "./chatBox.scss";
 
 
@@ -29,9 +29,9 @@ class ChatBox extends React.Component {
 
                 </div>
                 <div className="chat-footer">
-                    <textarea className="" cols="30" rows="10"></textarea>
+                    <textarea className="send-text-area" cols="60" rows="1"></textarea>
                     <div className="send-button">
-                        <BsFillChatDotsFill />
+                        <IoIosSend />
                     </div>
                 </div>
             </div>
