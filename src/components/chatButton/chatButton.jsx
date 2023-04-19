@@ -12,15 +12,15 @@ class ChatButton extends React.Component {
     openOrClose() {
         return (
             this.props.open
-            ? <CgClose className="chatButton-icon" />
-            : <BsFillChatDotsFill className="chatButton-icon" />
+            ? <CgClose className="chat-button-icon" />
+            : <BsFillChatDotsFill className="chat-button-icon" />
         );
     }
 
     render() {
         
         return (
-            <div className="chatButton" onClick={this.props.toggle}>
+            <div className="chat-button" onClick={this.props.toggle}>
                 {this.openOrClose()}
             </div>
         )

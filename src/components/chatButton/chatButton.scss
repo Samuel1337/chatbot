@@ -1,4 +1,4 @@
-.chatButton {
+.chat-button {
     position: fixed;
     right: 32px;
     bottom: 32px;
@@ -18,7 +18,7 @@
         color: white;
     }
 }
-.chatButton:hover {
+.chat-button:hover {
     transition: 0.3s;
     background-color: #1a2b58;
 }

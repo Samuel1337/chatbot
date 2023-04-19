@@ -1,6 +1,7 @@
 import React from "react";
+import {BsFillChatDotsFill} from "react-icons/bs";
 import "./chatBox.scss";
-import $ from "jquery";
+
 
 class ChatBox extends React.Component {
     constructor(props) {
@@ -8,18 +9,30 @@ class ChatBox extends React.Component {
     }
 
     componentDidUpdate() {
-        $("#fade-in").toggleClass("show");
+        let chatBox = document.getElementById("fade-in");
+
+        if (this.props.open && !chatBox.classList.contains("show")) {
+            chatBox.classList.add("show");
+        } else if (!this.props.open && chatBox.classList.contains("show")) {
+            chatBox.classList.remove("show");
+        }
     }
 
     render() {
 
         return (
-            <div className="chatBox" id="fade-in">
-                <div className="chatHeader">
-                    <p className="chatTitle">CSM Support</p>
+            <div className="chat-box" id="fade-in">
+                <div className="chat-header">
+                    <p className="chat-title">CSM Support</p>
                 </div>
-                <div className="chatArea">
+                <div className="chat-area">
 
+                </div>
+                <div className="chat-footer">
+                    <textarea className="" cols="30" rows="10"></textarea>
+                    <div className="send-button">
+                        <BsFillChatDotsFill />
+                    </div>
                 </div>
             </div>
         )
