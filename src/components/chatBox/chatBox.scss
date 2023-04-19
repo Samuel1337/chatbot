@@ -1,0 +1,34 @@
+.chatBox {
+    position: fixed;
+    right: 32px;
+    bottom: 118px;
+    width: 296px;
+    height: calc(100% - 236px);
+    max-height: -webkit-calc(100% - 58px);
+    max-height: -moz-calc(100% - 58px);
+    max-height: calc(100% - 58px);
+    min-height: 142px;
+    background-color: #223870;
+    border-radius: 0.3125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.7s;
+    filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.3));
+    * {
+        width: 50%;
+        height: 50%;
+        color: white;
+    }
+}
+
+#fade-in {
+    height: 64px;
+    opacity: 0;
+    transition: all .75s ease;
+}
+
+#fade-in.show {
+    opacity: 1;
+    height: calc(100% - 236px);
+}

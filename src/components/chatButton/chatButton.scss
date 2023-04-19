@@ -1,0 +1,24 @@
+.chatButton {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    width: 64px;
+    height: 64px;
+    background-color: #223870;
+    border-radius: 0.3125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.7s;
+    cursor: pointer;
+    filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.3));
+    * {
+        width: 50%;
+        height: 50%;
+        color: white;
+    }
+}
+.chatButton:hover {
+    transition: 0.3s;
+    background-color: #1a2b58;
+}
