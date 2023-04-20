@@ -143,6 +143,7 @@
 }
 
 .message-bubble {
+    text-align: start;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +154,7 @@
     width: auto;
     height: auto;
     hyphens: auto;
-    max-width: 60%;
+    max-width: 65%;
     margin: 0.5rem;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
