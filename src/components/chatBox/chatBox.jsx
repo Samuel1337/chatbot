@@ -29,7 +29,7 @@ class ChatBox extends React.Component {
 
                 </div>
                 <div className="chat-footer">
-                    <textarea className="send-text-area" cols="60" rows="1"></textarea>
+                    <textarea className="send-text-area" cols="60" rows="1" spellcheck="false"></textarea>
                     <div className="send-button">
                         <IoIosSend />
                     </div>
