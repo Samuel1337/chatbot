@@ -11,7 +11,7 @@ class ChatContainer extends React.Component {
             conversation: [
                 {bot: "Hello there! How can I help you?"},
                 {user: "I'm doing fine, thanks!"},
-                {bot: "Hello there! How can I help you?"},
+                {bot: "Sure! Let me know if you have any questions."},
             ]
         };
         this.toggle = this.toggle.bind(this);
