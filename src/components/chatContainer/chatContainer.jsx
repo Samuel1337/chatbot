@@ -2,7 +2,7 @@ import React from "react";
 import ChatButton from "../chatButton/chatButton";
 import ChatBox from "../chatBox/chatBox";
 
-class Chat extends React.Component {
+class ChatContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,4 +31,4 @@ class Chat extends React.Component {
     }
 }
 
-export default Chat;
+export default ChatContainer;

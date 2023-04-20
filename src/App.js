@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Chat from './components/chat/chat';
+import ChatContainer from './components/chatContainer/chatContainer';
 
 function App() {
   
@@ -19,7 +19,7 @@ function App() {
         >
           Learn React
         </a>
-      <Chat />
+      <ChatContainer />
       </header>
     </div>
   );
