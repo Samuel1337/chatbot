@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './reset.css';
 import ChatContainer from './components/chatContainer/chatContainer';
 
 function App() {

@@ -6,6 +6,7 @@ import "./chatBox.scss";
 class ChatBox extends React.Component {
     constructor(props) {
         super(props);
+        this.displayMessages = this.displayMessages.bind(this);
     }
 
     componentDidUpdate() {
@@ -16,6 +17,33 @@ class ChatBox extends React.Component {
         } else if (!this.props.open && chatBox.classList.contains("show")) {
             chatBox.classList.remove("show");
         }
+
+        this.displayMessages();
+    }
+
+    displayMessages() {
+        return this.props.conversation.map(message => {
+
+            if (message.bot) {
+                return (
+                    <li className="message-container">
+                        <p className="message-name">CSM Support</p>
+                        <div className="message-bubble bot">
+                            {message.bot}
+                        </div>
+                    </li>
+                )
+            } else if (message.user) {
+                return (
+                    <li className="message-container">
+                        <div className="message-bubble user">
+                            {message.user}
+                        </div>
+                    </li>
+                )
+            }
+            
+        });
     }
 
     render() {
@@ -26,10 +54,12 @@ class ChatBox extends React.Component {
                     <p className="chat-title">CSM Support</p>
                 </div>
                 <div className="chat-area">
-
+                    <ul className="message-list">
+                        {this.displayMessages()}
+                    </ul>
                 </div>
                 <div className="chat-footer">
-                    <textarea className="send-text-area" cols="60" rows="1" spellcheck="false"></textarea>
+                    <textarea className="send-text-area" cols="60" rows="1" spellCheck="false"></textarea>
                     <div className="send-button">
                         <IoIosSend />
                     </div>
