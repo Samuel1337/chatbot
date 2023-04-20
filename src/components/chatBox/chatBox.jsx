@@ -1,12 +1,18 @@
 import React from "react";
 import {IoIosSend} from "react-icons/io";
 import "./chatBox.scss";
-
+import $ from 'jquery';
 
 class ChatBox extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            text: ''
+        }
         this.displayMessages = this.displayMessages.bind(this);
+        this.updateText = this.updateText.bind(this);
+        this.send = this.send.bind(this);
+        this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
     }
 
     componentDidUpdate() {
@@ -19,6 +25,13 @@ class ChatBox extends React.Component {
         }
 
         this.displayMessages();
+    }
+
+    scrollSmoothlyToBottom() {
+        const element = $("#scroll");
+        element.animate({
+            scrollTop: element.prop("scrollHeight")
+        }, 500);
     }
 
     displayMessages() {
@@ -44,6 +57,17 @@ class ChatBox extends React.Component {
             }
             
         });
+        
+    }
+
+    updateText() {
+        return e => this.setState({text: e.currentTarget.value});
+    }
+
+    send() {
+        this.props.sendMessage(this.state.text);
+        this.setState({text: ''});
+        this.scrollSmoothlyToBottom();
     }
 
     render() {
@@ -54,13 +78,21 @@ class ChatBox extends React.Component {
                     <p className="chat-title">CSM Support</p>
                 </div>
                 <div className="chat-area">
-                    <ul className="message-list">
+                    <ul className="message-list" id="scroll">
                         {this.displayMessages()}
                     </ul>
                 </div>
                 <div className="chat-footer">
-                    <textarea className="send-text-area" cols="60" rows="1" spellCheck="false"></textarea>
-                    <div className="send-button">
+                    <textarea
+                        className="send-text-area"
+                        cols="60"
+                        rows="1"
+                        spellCheck="false"
+                        placeholder="Write a reply..."
+                        value={this.state.text}
+                        onChange={this.updateText()}
+                    ></textarea>
+                    <div className="send-button" onClick={this.send}>
                         <IoIosSend />
                     </div>
                 </div>

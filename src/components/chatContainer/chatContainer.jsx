@@ -12,7 +12,6 @@ class ChatContainer extends React.Component {
                 {bot: "Hello there! How can I help you?"},
                 {user: "I'm doing fine, thanks!"},
                 {bot: "Hello there! How can I help you?"},
-                {bot: "Hello there! How can I help you?"},
             ]
         };
         this.toggle = this.toggle.bind(this);
@@ -25,7 +24,7 @@ class ChatContainer extends React.Component {
 
     sendMessage(message) {
         let conversation = this.state.conversation;
-        conversation.push(message);
+        conversation.push({user: message});
 
         this.setState({conversation: conversation});
     }
@@ -36,6 +35,7 @@ class ChatContainer extends React.Component {
                 <ChatBox
                     open={this.state.open}
                     conversation={this.state.conversation}
+                    sendMessage={this.sendMessage}
                 />
                 <ChatButton
                     open={this.state.open}
