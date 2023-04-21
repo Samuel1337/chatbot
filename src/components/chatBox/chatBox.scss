@@ -61,10 +61,29 @@
 .chat-area {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: none;
     background-color: white;
     box-shadow: inset 0px -4px 16px rgba(0,0,0,0.1);
+    
 }
+.chat-area::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-area::-webkit-scrollbar-track {
+    // box-shadow: inset 0 0 8px rgba(100, 100, 100, 0.5);
+    border-radius: 4px;
+    background: white;
+    margin: 17px;
+}
+.chat-area::-webkit-scrollbar-thumb {
+    background: #acacac;
+    border-radius: 4px;
+}
+.chat-area::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
 
 .chat-footer {
     display: flex;
@@ -126,13 +145,13 @@
 
 .message-list {
     width: auto;
-    height: 100%;
+    height:fit-content;
     display: flex;
     flex-direction: column;
     list-style-type:none;
     padding: 0.5rem;
     margin: 0;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .message-container {
@@ -149,18 +168,24 @@
     align-items: center;
     background-color: lightsalmon;
     padding: 0.5rem;
-    font-size: 10pt;
-    line-height: 1.45;
     width: auto;
     height: auto;
-    hyphens: auto;
     max-width: 65%;
     margin: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     border-radius: 0.3125rem;
-    color: rgb(65,65,65);
     box-shadow: 0px 0px 6px rgba(0,0,0,0.2);
+
+    p {
+        width: 100%;
+        height: 100%;
+        word-wrap: break-word;
+        font-family: 'Montserrat', sans-serif;
+        color: rgb(65,65,65);
+        font-size: 10pt;
+        line-height: 1.45;
+        hyphens: auto;
+    }
 }
 
 .message-name {
