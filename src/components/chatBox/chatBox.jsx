@@ -40,20 +40,28 @@ class ChatBox extends React.Component {
     displayMessages() {
         return this.props.conversation.map((message, index) => {
 
-            if (message.bot) {
+            if (message.sender === "bot") {
                 return (
+                    // Bot's Message Bubbles
                     <li className="message-container" key={`msg-${index}`}>
                         <p className="message-name">CSM Support</p>
-                        <div className="message-bubble bot">
-                            <p>{message.bot}</p>
+                        <div className="message-bubble-container">
+                            <div className="message-bubble bot">
+                                <p>{message.text}</p>
+                            </div>
+                            <p className="message-timestamp">{message.time}</p>
                         </div>
                     </li>
                 )
-            } else if (message.user) {
+            } else if (message.sender === "user") {
                 return (
+                    // User's Message Bubbles
                     <li className="message-container" key={`msg-${index}`}>
-                        <div className="message-bubble user">
-                            <p>{message.user}</p>
+                        <div className="message-bubble-container">
+                            <p className="message-timestamp">{message.time}</p>
+                            <div className="message-bubble user">
+                                <p>{message.text}</p>
+                            </div>
                         </div>
                     </li>
                 )
@@ -89,7 +97,7 @@ class ChatBox extends React.Component {
     }
 
     send() {
-        console.log([this.state.text])
+        
         if (this.state.text !== '' && this.state.text !== ' ') {
             this.props.sendMessage(this.state.text);
             this.setState({text: ''});
