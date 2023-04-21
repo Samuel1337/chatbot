@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import ChatButton from "../chatButton/chatButton";
 import ChatBox from "../chatBox/chatBox";
+import Options from "../../options";
 
 class ChatContainer extends React.Component {
     constructor(props) {
@@ -9,41 +10,10 @@ class ChatContainer extends React.Component {
         this.date = new Date();
         this.startingTime = this.date.getHours() + ":" + this.date.getMinutes();
 
-        /*
+        this.options = Options();
+
+        console.log(this.options);
         
-        INTEGRATION INSTRUCTIONS:
-
-        state = {
-            open: true || false <-- opens and closes the chat
-            
-            conversation: [
-                {
-                    sender: "user",
-                    text: "User's message",         <-- example of user message object
-                    time: "timestamp (HH:MM)"
-                },
-                
-                {
-                    sender: "bot",
-                    text: "Bot's message",          <-- example of bot message object
-                    time: "timestamp (HH:MM)",
-                    tag: "home",
-
-                    options: [
-                        {
-                            title: "title",
-                            link: "www.example.com",
-                            child: ""
-                        }
-                    ]
-
-                }
-            ]
-        }
-        
-        */
-
-
         this.state = {
             open: false,
             conversation: [
@@ -52,6 +22,8 @@ class ChatContainer extends React.Component {
                     text: "Hello there! How can I help you?",
                     time: this.startingTime,
                     tag: "home",
+                    parent: "",
+
                     options: [
                         {
                             title: "Apply Now",
@@ -60,7 +32,7 @@ class ChatContainer extends React.Component {
                         },
                         {
                             title: "Apply Now",
-                            type: "",
+                            link: "",
                             child: ""
                         }
                     ]
