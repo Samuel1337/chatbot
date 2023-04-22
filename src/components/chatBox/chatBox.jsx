@@ -2,6 +2,7 @@ import React from "react";
 import {IoIosSend} from "react-icons/io";
 import "./chatBox.scss";
 import $ from 'jquery';
+import Message from "../message/message";
 
 class ChatBox extends React.Component {
     constructor(props) {
@@ -39,34 +40,7 @@ class ChatBox extends React.Component {
 
     displayMessages() {
         return this.props.conversation.map((message, index) => {
-
-            if (message.sender === "bot") {
-                return (
-                    // Bot's Message Bubbles
-                    <li className="message-container" key={`msg-${index}`}>
-                        <p className="message-name">CSM Support</p>
-                        <div className="message-bubble-container">
-                            <div className="message-bubble bot">
-                                <p>{message.text}</p>
-                            </div>
-                            <p className="message-timestamp">{message.time}</p>
-                        </div>
-                    </li>
-                )
-            } else if (message.sender === "user") {
-                return (
-                    // User's Message Bubbles
-                    <li className="message-container" key={`msg-${index}`}>
-                        <div className="message-bubble-container">
-                            <p className="message-timestamp">{message.time}</p>
-                            <div className="message-bubble user">
-                                <p>{message.text}</p>
-                            </div>
-                        </div>
-                    </li>
-                )
-            }
-            
+            return <Message message={message} index={index} key={`msg-${index}`} />            
         });
         
     }
