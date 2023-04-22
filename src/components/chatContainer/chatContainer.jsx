@@ -21,7 +21,7 @@ class ChatContainer extends React.Component {
                     text: "Hello there! How can I help you?",
                     time: this.startingTime,
                     tag: "home",
-                    children: ["applyNow", "virtualFrontDesk", "summerClasses", "studentServices"]
+                    children: ["studentServices", "virtualFrontDesk", "summerClasses", "applyNow"]
                 }
             ]
         };
