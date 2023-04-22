@@ -22,23 +22,13 @@ class ChatContainer extends React.Component {
                     time: this.startingTime,
                     tag: "home",
                     children: ["applyNow", "virtualFrontDesk", "summerClasses", "studentServices"]
-
-                },
-                {
-                    sender: "user",
-                    text: "I'm doing fine, thanks!",
-                    time: this.startingTime
-                },
-                {
-                    sender: "bot",
-                    text: "Sure! Let me know if you have any questions.",
-                    time: this.startingTime
                 }
             ]
         };
         this.toggle = this.toggle.bind(this);
-        this.sendMessage = this.sendMessage.bind(this);
         this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
+        this.respond = this.respond.bind(this);
     }
 
     toggle() {
@@ -65,7 +55,55 @@ class ChatContainer extends React.Component {
 
         this.setState({conversation: conversation});
         this.scrollSmoothlyToBottom();
+        this.respond();
     }
+
+    respond() {
+        let conversation = [...this.state.conversation];
+        let lastMessage = conversation[conversation.length - 1].text;
+        lastMessage = lastMessage.toLowerCase().split(' ').join('');
+        let response;
+        
+        if (lastMessage.includes("applynow")) {
+            response = Options().applyNow;
+        } else if (lastMessage.includes("virtualfrontdesk")) {
+            response = Options().virtualFrontDesk;
+        } else if (lastMessage.includes("summerclasses")) {
+            response = Options().summerClasses;
+        } else if (lastMessage.includes("studentservices")) {
+            response = Options().studentServices;
+        } else if (lastMessage.includes("admissions&records")) {
+            response = Options().admissionsRecords;
+        } else if (lastMessage.includes("careerservices")) {
+            response = Options().careerServices;
+        } else if (lastMessage.includes("dreamcenter")) {
+            response = Options().dreamCenter;
+        } else {
+            response = {
+                sender: "bot",
+                text: "Sorry, I don't understand.",
+                time: this.startingTime,
+                tag: "sorry"
+            }
+        }
+        
+        response['sender'] = 'bot';
+        
+        window.setTimeout(() => {
+            conversation.push({loading: true});
+            console.log(conversation)
+            this.setState({conversation: conversation});
+            this.scrollSmoothlyToBottom();
+        }, 500);
+
+        window.setTimeout(() => {
+            conversation.pop()
+            conversation.push(response);
+            this.setState({conversation: conversation});
+            this.scrollSmoothlyToBottom();
+        }, 1500);
+    }
+
 
     render() {
         return (
