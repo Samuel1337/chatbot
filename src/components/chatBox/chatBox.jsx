@@ -11,7 +11,6 @@ class ChatBox extends React.Component {
             text: ''
         }
         this.displayMessages = this.displayMessages.bind(this);
-        this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
         this.clearInitialSpaces = this.clearInitialSpaces.bind(this);
         this.checkForEnter = this.checkForEnter.bind(this);
         this.updateText = this.updateText.bind(this);
@@ -29,13 +28,6 @@ class ChatBox extends React.Component {
         }
 
         this.displayMessages();
-    }
-
-    scrollSmoothlyToBottom() {
-        const element = $("#scroll");
-        element.animate({
-            scrollTop: element.prop("scrollHeight")
-        }, 500);
     }
 
     displayMessages() {
@@ -82,7 +74,6 @@ class ChatBox extends React.Component {
         if (this.state.text !== '' && this.state.text !== ' ') {
             this.props.sendMessage(this.state.text);
             this.setState({text: ''});
-            this.scrollSmoothlyToBottom();
         }
     }
 

@@ -2,6 +2,7 @@ import React, { Children } from "react";
 import ChatButton from "../chatButton/chatButton";
 import ChatBox from "../chatBox/chatBox";
 import Options from "../../options";
+import $ from "jquery";
 
 class ChatContainer extends React.Component {
     constructor(props) {
@@ -37,10 +38,18 @@ class ChatContainer extends React.Component {
         };
         this.toggle = this.toggle.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
     }
 
     toggle() {
         this.setState({open: !this.state.open});
+    }
+
+    scrollSmoothlyToBottom() {
+        const element = $("#scroll");
+        element.animate({
+            scrollTop: element.prop("scrollHeight")
+        }, 500);
     }
 
     sendMessage(message) {
@@ -55,6 +64,7 @@ class ChatContainer extends React.Component {
         });
 
         this.setState({conversation: conversation});
+        this.scrollSmoothlyToBottom();
     }
 
     render() {
