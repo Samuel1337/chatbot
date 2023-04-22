@@ -6,9 +6,7 @@
     bottom: 118px;
     width: 386px;
     height: calc(100% - 236px);
-    max-height: -webkit-calc(100% - 58px);
-    max-height: -moz-calc(100% - 58px);
-    max-height: calc(100% - 58px);
+    max-height: 550px;
     min-height: 142px;
     background-color: #223870;
     border-radius: 0.3125rem;
@@ -157,7 +155,7 @@
 @media only screen and (max-width: 400px) {
     
     .chat-box {
-        width: 100%;
+        width: calc(100% - 32px);
         right: 16px;
         bottom: 102px;
     }
