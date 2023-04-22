@@ -153,3 +153,12 @@
     margin: 0;
     overflow: hidden;
 }
+
+@media only screen and (max-width: 400px) {
+    
+    .chat-box {
+        width: 100%;
+        right: 16px;
+        bottom: 102px;
+    }
+}

@@ -22,3 +22,11 @@
     transition: 0.3s;
     background-color: #1a2b58;
 }
+
+@media only screen and (max-width: 400px) {
+    
+    .chat-button {
+        right: 16px;
+        bottom: 16px;
+    }
+}
