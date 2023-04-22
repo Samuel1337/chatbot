@@ -29,6 +29,7 @@ class ChatContainer extends React.Component {
         this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.respond = this.respond.bind(this);
+        this.randomText = this.randomText.bind(this);
     }
 
     toggle() {
@@ -79,10 +80,13 @@ class ChatContainer extends React.Component {
         } else if (lastMessage.includes("dreamcenter")) {
             response = Options().dreamCenter;
         } else {
+            let date = new Date();
+            let currentTime = date.getHours() + ":" + date.getMinutes();
+    
             response = {
                 sender: "bot",
-                text: "Sorry, I don't understand.",
-                time: this.startingTime,
+                text: this.randomText(),
+                time: currentTime,
                 tag: "sorry"
             }
         }
@@ -91,7 +95,6 @@ class ChatContainer extends React.Component {
         
         window.setTimeout(() => {
             conversation.push({loading: true});
-            console.log(conversation)
             this.setState({conversation: conversation});
             this.scrollSmoothlyToBottom();
         }, 500);
@@ -104,6 +107,19 @@ class ChatContainer extends React.Component {
         }, 1500);
     }
 
+    randomText() {
+        let sorryTexts = [
+            "Sorry, I don't understand.",
+            "I couldn't find what you're looking for.",
+            "That seems to be unavailable right now.",
+            "That's not available at the moment.",
+            "I didn't quite get that.",
+            "Speak more clearly, I'm not that smart.",
+            "Come again?",
+            "What do you mean?"
+        ]
+        return sorryTexts[Math.floor(Math.random() * 7)];
+    }
 
     render() {
         return (
