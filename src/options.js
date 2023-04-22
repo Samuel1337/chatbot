@@ -57,46 +57,4 @@ export default function Options() {
     }
 }
 
-        /*
-        
-        INTEGRATION INSTRUCTIONS:
-
-        state = {
-            open: true || false <-- opens and closes the chat
-            
-            conversation: [
-                {
-                    sender: "user",
-                    text: "User's message",         <-- example of user message object
-                    time: "timestamp (HH:MM)"
-                },
-                
-                {
-                    sender: "bot",
-                    text: "Bot's message",          <-- example of bot message object
-                    time: "timestamp (HH:MM)",
-                    parent: "",
-
-                    options: [
-                        {
-                            title: "title",
-                            link: "www.example.com",
-                            child: "applyNow"
-                        },
-                        {
-                            title: "title",
-                            link: "",
-                            child: "college-faq"
-                        },
-                        {
-                            title: "title",
-                            link: "",
-                            child: "summerClasses"
-                        }
-                    ]
-
-                }
-            ]
-        }
-        
-        */
+     
