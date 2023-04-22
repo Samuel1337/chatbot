@@ -40,7 +40,14 @@ class ChatBox extends React.Component {
 
     displayMessages() {
         return this.props.conversation.map((message, index) => {
-            return <Message message={message} index={index} key={`msg-${index}`} />            
+            return (
+                <Message
+                    message={message}
+                    index={index}
+                    sendMessage={this.props.sendMessage}
+                    key={`msg-${index}`}
+                />            
+            )
         });
         
     }

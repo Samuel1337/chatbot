@@ -50,12 +50,12 @@ class Message extends React.Component {
         let message = this.props.message;
         
         if (message.children) {
-            console.log(message.children)
             return message.children.map((child, index) => {
+                let title = Options()[child].title;
                 return (
                     <li className="option-container" key={`opt-${index}`}>
-                        <div className="option-bubble">
-                            <p>{Options()[child].title}</p>  
+                        <div className="option-bubble" onClick={() => this.props.sendMessage(title)}>
+                            <p>{title}</p>  
                         </div>
                     </li>
                 )

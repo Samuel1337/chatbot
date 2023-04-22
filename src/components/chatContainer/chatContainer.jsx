@@ -12,8 +12,6 @@ class ChatContainer extends React.Component {
 
         this.options = Options();
 
-        console.log(this.options);
-        
         this.state = {
             open: false,
             conversation: [
