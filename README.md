@@ -153,6 +153,32 @@ Finally the loading animation is removed from the `conversation` array, which st
 }
 ```
 
+Here's an example of what the `conversation` array looks like:
+
+```javascript
+conversation = [
+    {
+        sender: "bot",
+        text: "Hello there! How can I help you?",
+        title: "Home",
+        children: ["studentServices", "virtualFrontDesk", "summerClasses", "applyNow"]
+    },
+    {
+        sender: "user",
+        text: "Hi, I'd love to know more about the career services",
+        time: this.getCurrentTime()
+    },
+    careerServices: {
+        sender: "bot",
+        text: "Here's a link to our Career Services:",
+        title: "Career Services",
+        link: "https://collegeofsanmateo.edu/career/",
+        parent: "studentServices",
+        children: ["careerServices"]
+    }
+]
+```
+
 In case you're wondering, this is what `randomText()` looks like:
 ```javascript
 randomText() {
