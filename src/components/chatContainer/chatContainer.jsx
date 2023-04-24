@@ -8,8 +8,7 @@ class ChatContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.date = new Date();
-        this.startingTime = this.date.getHours() + ":" + this.date.getMinutes();
+        this.startingTime = this.getCurrentTime();
 
         this.options = Options();
 
@@ -25,11 +24,24 @@ class ChatContainer extends React.Component {
                 }
             ]
         };
+        this.getCurrentTime = this.getCurrentTime.bind(this);
         this.toggle = this.toggle.bind(this);
         this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.respond = this.respond.bind(this);
         this.randomText = this.randomText.bind(this);
+    }
+
+    getCurrentTime() {
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let currentTime = hours + ":";
+        if (minutes < 10) {
+            minutes = "0" + minutes
+        }
+        currentTime += minutes;
+        return currentTime;
     }
 
     toggle() {
@@ -44,14 +56,12 @@ class ChatContainer extends React.Component {
     }
 
     sendMessage(message) {
-        let date = new Date();
-        let currentTime = date.getHours() + ":" + date.getMinutes();
 
         let conversation = this.state.conversation;
         conversation.push({
             sender: "user",
             text: message,
-            time: currentTime
+            time: this.getCurrentTime()
         });
 
         this.setState({conversation: conversation});
@@ -80,18 +90,16 @@ class ChatContainer extends React.Component {
         } else if (lastMessage.includes("dreamcenter")) {
             response = Options().dreamCenter;
         } else {
-            let date = new Date();
-            let currentTime = date.getHours() + ":" + date.getMinutes();
     
             response = {
                 sender: "bot",
                 text: this.randomText(),
-                time: currentTime,
+                time: this.getCurrentTime(),
                 tag: "sorry"
             }
         }
         
-        response['sender'] = 'bot';
+        response['time'] = this.getCurrentTime();
         
         window.setTimeout(() => {
             conversation.push({loading: true});

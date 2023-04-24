@@ -1,19 +1,34 @@
 export default function Options() {
     
+    function getCurrentTime() {
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let currentTime = hours + ":";
+        if (minutes < 10) {
+            minutes = "0" + minutes
+        }
+        currentTime += minutes;
+        return currentTime;
+    }
+
     return {
         home: {
+            sender: "bot",
             text: "Hello there! How can I help you?",
             children: ["applyNow", "virtualFrontDesk", "summerClasses", "studentServices"]
         },
         applyNow: {
+            sender: "bot",
             text: "Click here to apply now:",
             parent: "home",
             title: "Apply Now",
             link: "https://collegeofsanmateo.edu/admissions/apply.php",
             children: ["applyNow"]
-
+            
         },
         virtualFrontDesk: {
+            sender: "bot",
             text: "Click here to view our virtual front desk:",
             parent: "home",
             title: "Virtual Front Desk",
@@ -21,6 +36,7 @@ export default function Options() {
             children: ["virtualFrontDesk"]
         },
         summerClasses: {
+            sender: "bot",
             text: "Click here to view our summer classes:",
             parent: "home",
             title: "Summer Classes",
@@ -28,12 +44,14 @@ export default function Options() {
             children: ["summerClasses"]
         },
         studentServices: {
+            sender: "bot",
             text: "Here are a few student services we provide. Feel free to explore or write directly what you need.",
             parent: "home",
             title: "Student Services",
             children: ["admissionsRecords", "careerServices", "dreamCenter"]
         },
         admissionsRecords: {
+            sender: "bot",
             text: "Here's a link to Admissions & Records:",
             parent: "studentServices",
             title: "Admissions & Records",
@@ -41,6 +59,7 @@ export default function Options() {
             children: ["admissionsRecords"]
         },
         careerServices: {
+            sender: "bot",
             text: "Here's a link to our Career Services:",
             parent: "studentServices",
             title: "Career Services",
@@ -48,6 +67,7 @@ export default function Options() {
             children: ["careerServices"]
         },
         dreamCenter: {
+            sender: "bot",
             text: "Here's a link to our DREAM Center:",
             parent: "studentServices",
             title: "DREAM Center",
