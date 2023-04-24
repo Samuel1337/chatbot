@@ -152,6 +152,8 @@ Finally the loading animation is removed from the `conversation` array, which st
     }, 1500);
 }
 ```
+That is the entire algorithm for now.
+
 
 Here's an example of what the `conversation` array looks like:
 ```javascript
