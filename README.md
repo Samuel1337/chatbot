@@ -140,7 +140,7 @@ A loading animation will be displayed while the chatbot computes the message. Cu
     // ...
 ```
 
-Finally the loading animation is removed from the `conversation` array, which stores all the messages of the *current conversation* and the chatbot's response is added instead. The `ChatBox` component gets updated, thus displaying the newest message from the bot: 
+Finally the loading animation is removed from the `conversation` array, which stores all the messages of the *current conversation*. The chatbot's response is added to the `conversation` array. The `ChatBox` component gets updated, thus displaying the newest message from the bot: 
 ```javascript
     // ...
 
