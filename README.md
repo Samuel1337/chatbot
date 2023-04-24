@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# CSM Chatbot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here's a live link to the project [CSM Chatbot](https://samuel1337.github.io/chatbot/).
 
 ## Available Scripts
 
@@ -25,46 +25,150 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `npm run deploy`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Uploads the app to Github Pages.
+It requires `npm install gh-pages --save-dev`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Commiting to the Github repo won't update the live page.
+This command must be executed every time you want to update the website. 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Integration Instructions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Database of potential responses
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The Chatbot contains a list of potential responses at `options.js`.
 
-### Code Splitting
+Here's an example of a potential response:
+```javascript
+studentServices: {
+            sender: "bot",
+            text: "Here are a few student services we provide. Feel free to explore or write directly what you need.",
+            title: "Student Services",
+            parent: "home",
+            children: ["admissionsRecords", "careerServices", "dreamCenter"]
+        }
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Here's the object template:
+```javascript
+nameOfTag: {
+            sender: String,
+            text: String,
+            title: String,
+            link: String,
+            parent: String,
+            children: Array[String]
+        }
+```
 
-### Analyzing the Bundle Size
+Notice that the template has a `link` key that isn't present in the example above. That's because the `link` key can only be placed in objects with a single item in the `Array[String]` of the `children` key.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Algorithm that reads user input
 
-### Making a Progressive Web App
+The algorithm that reads user input is still very primitive. It is contained within the `respond()` function within the `ChatContainer` component (`src/components/chatContainer/chatContainer.jsx`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Initially it converts the user's input into a single string on lowercase with no spaces:
+```javascript
+respond() {
+    // gets the last message sent by user
+    let conversation = [...this.state.conversation];
+    let lastMessage = conversation[conversation.length - 1].text;
+    
+    // converts it to lowercase with no spaces
+    lastMessage = lastMessage.toLowerCase().split(' ').join('');
+    let response;
 
-### Advanced Configuration
+    // ...
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Then it hits a rudimentary system of if-else statements that matches the content of `options.js`:
+```javascript
+    // ...
 
-### Deployment
+    if (lastMessage.includes("applynow")) {
+        response = this.options.applyNow;
+    } else if (lastMessage.includes("virtualfrontdesk")) {
+        response = this.options.virtualFrontDesk;
+    } else if (lastMessage.includes("summerclasses")) {
+        response = this.options.summerClasses;
+    } else if (lastMessage.includes("studentservices")) {
+        response = this.options.studentServices;
+    } else if (lastMessage.includes("admissions&records")) {
+        response = this.options.admissionsRecords;
+    } else if (lastMessage.includes("careerservices")) {
+        response = this.options.careerServices;
+    } else if (lastMessage.includes("dreamcenter")) {
+        response = this.options.dreamCenter;
+    } else {
+        
+        // if no message was found with these words, it will send out a "sorry" message. The content of the message will be picked from a list of random "sorry" lines
+        response = {
+            sender: "bot",
+            text: this.randomText()
+        }
+    }
+    
+    // ...
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+A timestamp will be added to the message: 
+```javascript
+    // ...
 
-### `npm run build` fails to minify
+    response['time'] = this.getCurrentTime();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    // ...
+```  
+Every message has one, and you can see it by hovering the cursor over each message on the chatbot.
+
+A loading animation will be displayed while the chatbot computes the message. Currently this process takes 0.5 second, but in the future it can be adjusted to dynamically match the response time of each HTTP request if we choose to go in that direction:
+```javascript
+    window.setTimeout(() => {
+        conversation.push({loading: true});
+        this.setState({conversation: conversation});
+        this.scrollSmoothlyToBottom();
+    }, 500);
+
+    // ...
+```
+
+Finally the loading animation is removed from the `conversation` array, which stores all the messages of the *current conversation* and the chatbot's response is added instead. The `ChatBox` component gets updated, thus displaying the newest message from the bot: 
+```javascript
+    // ...
+
+    window.setTimeout(() => {
+        conversation.pop()
+        conversation.push(response);
+        this.setState({conversation: conversation});
+        this.scrollSmoothlyToBottom();
+    }, 1500);
+}
+```
+
+In case you're wondering, this is what `randomText()` looks like:
+```javascript
+randomText() {
+    let sorryTexts = [
+        "Sorry, I don't understand.",
+        "I couldn't find what you're looking for.",
+        "That seems to be unavailable right now.",
+        "That's not available at the moment.",
+        "I didn't quite get that.",
+        "Speak more clearly, I'm not that smart.",
+        "Come again?",
+        "What do you mean?"
+    ]
+    return sorryTexts[Math.floor(Math.random() * 7)];
+}
+```
+
+Now all that needs to be done is expanding the `options.js` database, enhancing the `respond()` function to react positively to a wider variety of user input, such as offering suggestions or understanding poorly written text, and testing the chatbot enough times to make sure it offers relevant help to whoever wants to use it!
+
+Let me know if you have any questions, I'm always willing to help :)

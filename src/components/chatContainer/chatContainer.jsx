@@ -94,9 +94,7 @@ class ChatContainer extends React.Component {
     
             response = {
                 sender: "bot",
-                text: this.randomText(),
-                time: this.getCurrentTime(),
-                tag: "sorry"
+                text: this.randomText()
             }
         }
         
