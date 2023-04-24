@@ -170,7 +170,7 @@ conversation = [
         text: "Hi, I'd love to know more about the career services",
         time: "9:59"
     },
-    careerServices: {
+    {
         sender: "bot",
         text: "Here's a link to our Career Services:",
         title: "Career Services",
