@@ -111,7 +111,11 @@ class Message extends React.Component {
     }
 
     controlButtons() {
-        if (this.props.message.parent) {
+        let conversation = this.props.conversation;
+        let message = this.props.message;
+        let last = conversation[conversation.length - 1];
+
+        if (message.parent && message.title === last.title) {
             return (
                 <li className="control-buttons-container">
                     <div className="control-buttons-div">

@@ -1,7 +1,6 @@
 import React from "react";
 import {IoIosSend} from "react-icons/io";
 import "./chatBox.scss";
-import $ from 'jquery';
 import Message from "../message/message";
 
 class ChatBox extends React.Component {
@@ -36,6 +35,7 @@ class ChatBox extends React.Component {
                 <Message
                     message={message}
                     index={index}
+                    conversation={this.props.conversation}
                     sendMessage={this.props.sendMessage}
                     redirect={this.props.redirect}
                     key={`msg-${index}`}

@@ -1,21 +1,10 @@
 export default function Options() {
-    
-    function getCurrentTime() {
-        let date = new Date();
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let currentTime = hours + ":";
-        if (minutes < 10) {
-            minutes = "0" + minutes
-        }
-        currentTime += minutes;
-        return currentTime;
-    }
 
     return {
         home: {
             sender: "bot",
             text: "Hello there! How can I help you?",
+            title: "Home",
             children: ["studentServices", "virtualFrontDesk", "summerClasses", "applyNow"]
         },
         applyNow: {
