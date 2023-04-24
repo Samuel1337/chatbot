@@ -68,7 +68,7 @@ nameOfTag: {
         }
 ```
 
-Notice that the template has a `link` key that isn't present in the example above. That's because the `link` key can only be placed in objects with a single item in the `Array[String]` of the `children` key.
+Notice that the template has a `link` key that isn't present in the example above. That's because the `link` key can only be placed in objects with a single item in the `Array[String]` of the `children` key (i.e. ["applyNow"]). 
 
 ### Algorithm that reads user input
 
