@@ -154,7 +154,6 @@ Finally the loading animation is removed from the `conversation` array, which st
 ```
 
 Here's an example of what the `conversation` array looks like:
-
 ```javascript
 conversation = [
     {
