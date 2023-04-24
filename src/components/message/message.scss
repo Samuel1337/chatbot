@@ -5,6 +5,12 @@
     flex-direction: column;
 }
 
+.message-container > hr {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+
 .message-bubble-container {
     width: 100%;
     display: flex;

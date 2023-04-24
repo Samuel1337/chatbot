@@ -70,6 +70,12 @@ class Message extends React.Component {
                     </div>
                 </li>       
             )
+        } else if (message.linebreak) {
+            return (
+                <li className="message-container">
+                    <hr></hr>
+                </li>
+            )
         }
     }
 

@@ -118,6 +118,7 @@ class ChatContainer extends React.Component {
 
     redirect(message) {
         let conversation = [...this.state.conversation];
+        conversation.push({linebreak: true});
         conversation.push(message);
         
         this.setState({conversation: conversation});
