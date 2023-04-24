@@ -108,7 +108,8 @@ Then it hits a rudimentary system of if-else statements that matches the content
         response = this.options.dreamCenter;
     } else {
         
-        // if no message was found with these words, it will send out a "sorry" message. The content of the message will be picked from a list of random "sorry" lines
+        // if no message was found with these words, it will send out a "sorry" message.
+        //The content of the message will be picked from a list of random "sorry" lines
         response = {
             sender: "bot",
             text: this.randomText()
