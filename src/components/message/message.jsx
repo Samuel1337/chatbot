@@ -155,7 +155,7 @@ class Message extends React.Component {
             if (message.parent) { parentMessage = this.options[message.parent] }
             this.props.redirect(parentMessage);
         } else if (input === "home") {
-            this.props.redirect(this.options.home);
+            this.props.redirect(this.options.home, "linebreak");
         }
     }
 

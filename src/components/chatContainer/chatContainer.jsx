@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import ChatButton from "../chatButton/chatButton";
 import ChatBox from "../chatBox/chatBox";
 import Options from "../../options";
@@ -116,9 +116,9 @@ class ChatContainer extends React.Component {
         }, 1500);
     }
 
-    redirect(message) {
+    redirect(message, addon) {
         let conversation = [...this.state.conversation];
-        conversation.push({linebreak: true});
+        if (addon === "linebreak") { conversation.push({linebreak: true}) }
         conversation.push(message);
         
         this.setState({conversation: conversation});
