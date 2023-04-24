@@ -127,7 +127,7 @@ A timestamp will be added to the message:
 
     // ...
 ```  
-Every message has one, and you can see it by hovering the cursor over each message on the chatbot.
+Every message has a timestamp, and you can see it by hovering the cursor over each message on the chatbot.
 
 A loading animation will be displayed while the chatbot computes the message. Currently this process takes 0.5 second, but in the future it can be adjusted to dynamically match the response time of each HTTP request if we choose to go in that direction:
 ```javascript
