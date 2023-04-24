@@ -16,7 +16,7 @@ export default function Options() {
         home: {
             sender: "bot",
             text: "Hello there! How can I help you?",
-            children: ["applyNow", "virtualFrontDesk", "summerClasses", "studentServices"]
+            children: ["studentServices", "virtualFrontDesk", "summerClasses", "applyNow"]
         },
         applyNow: {
             sender: "bot",

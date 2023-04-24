@@ -14,22 +14,21 @@ class ChatContainer extends React.Component {
 
         this.state = {
             open: false,
-            conversation: [
-                {
-                    sender: "bot",
-                    text: "Hello there! How can I help you?",
-                    time: this.startingTime,
-                    tag: "home",
-                    children: ["studentServices", "virtualFrontDesk", "summerClasses", "applyNow"]
-                }
-            ]
+            conversation: [this.getInitialMessage()]
         };
-        this.getCurrentTime = this.getCurrentTime.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.getCurrentTime = this.getCurrentTime.bind(this);
+        this.getInitialMessage = this.getInitialMessage.bind(this);
         this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.respond = this.respond.bind(this);
+        this.redirect = this.redirect.bind(this);
         this.randomText = this.randomText.bind(this);
+    }
+
+
+    toggle() {
+        this.setState({open: !this.state.open});
     }
 
     getCurrentTime() {
@@ -44,8 +43,10 @@ class ChatContainer extends React.Component {
         return currentTime;
     }
 
-    toggle() {
-        this.setState({open: !this.state.open});
+    getInitialMessage() {
+        let initialMessage = this.options.home;
+        initialMessage["time"] = this.getCurrentTime();
+        return initialMessage;
     }
 
     scrollSmoothlyToBottom() {
@@ -76,19 +77,19 @@ class ChatContainer extends React.Component {
         let response;
         
         if (lastMessage.includes("applynow")) {
-            response = Options().applyNow;
+            response = this.options.applyNow;
         } else if (lastMessage.includes("virtualfrontdesk")) {
-            response = Options().virtualFrontDesk;
+            response = this.options.virtualFrontDesk;
         } else if (lastMessage.includes("summerclasses")) {
-            response = Options().summerClasses;
+            response = this.options.summerClasses;
         } else if (lastMessage.includes("studentservices")) {
-            response = Options().studentServices;
+            response = this.options.studentServices;
         } else if (lastMessage.includes("admissions&records")) {
-            response = Options().admissionsRecords;
+            response = this.options.admissionsRecords;
         } else if (lastMessage.includes("careerservices")) {
-            response = Options().careerServices;
+            response = this.options.careerServices;
         } else if (lastMessage.includes("dreamcenter")) {
-            response = Options().dreamCenter;
+            response = this.options.dreamCenter;
         } else {
     
             response = {
@@ -115,6 +116,14 @@ class ChatContainer extends React.Component {
         }, 1500);
     }
 
+    redirect(message) {
+        let conversation = [...this.state.conversation];
+        conversation.push(message);
+        
+        this.setState({conversation: conversation});
+        this.scrollSmoothlyToBottom();
+    }
+
     randomText() {
         let sorryTexts = [
             "Sorry, I don't understand.",
@@ -136,6 +145,7 @@ class ChatContainer extends React.Component {
                     open={this.state.open}
                     conversation={this.state.conversation}
                     sendMessage={this.sendMessage}
+                    redirect={this.redirect}
                 />
                 <ChatButton
                     open={this.state.open}

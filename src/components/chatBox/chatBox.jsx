@@ -37,6 +37,7 @@ class ChatBox extends React.Component {
                     message={message}
                     index={index}
                     sendMessage={this.props.sendMessage}
+                    redirect={this.props.redirect}
                     key={`msg-${index}`}
                 />            
             )

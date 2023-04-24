@@ -1,13 +1,21 @@
 import React from "react";
 import "./message.scss";
+import { IoIosRefresh, IoIosHome } from "react-icons/io";
+import { HiExternalLink } from "react-icons/hi";
 import Options from "../../options";
 
 class Message extends React.Component {
     constructor(props) {
         super(props);
+
+        this.options = Options();
+        
         this.displayText = this.displayText.bind(this);
         this.displayOptions = this.displayOptions.bind(this);
+        this.handleTitle = this.handleTitle.bind(this);
+        this.controlButtons = this.controlButtons.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleControl = this.handleControl.bind(this);   
     }
 
     displayText() {
@@ -69,26 +77,75 @@ class Message extends React.Component {
         let message = this.props.message;
         
         if (message.children) {
-            return message.children.map((child, index) => {
-                let title = Options()[child].title;
+            let options = message.children.map((child, index) => {
                 return (
                     <li className="option-container" key={`opt-${index}`}>
                         <div className="option-bubble" onClick={() => this.handleClick(child)}>
-                            <p>{title}</p>  
+                            {this.handleTitle(child)}  
                         </div>
                     </li>
                 )
             })
+            return (
+                <>
+                    {options}
+                    {this.controlButtons()}
+                </>
+            )
         }
     }
 
-    handleClick(child) {
-        let node = Options()[child]; 
+    handleTitle(child) {
+        let message = this.options[child];
+        let title = message.title;
 
-        if (node.link && this.props.message.children.length === 1) {
-            window.open(node.link, '_blank');
+        if (message.link && this.props.message.children.length === 1) {
+            return (
+                <p className="option-title">{title}<HiExternalLink className="option-link-icon"/></p>
+                )
+            } else {
+            return (
+                <p>{title}</p>
+            )
+        }
+    }
+
+    controlButtons() {
+        if (this.props.message.parent) {
+            return (
+                <li className="control-buttons-container">
+                    <div className="control-buttons-div">
+                        <div className="control-button" onClick={() => this.handleControl("return")}>
+                            <p className="control-button-icon"><IoIosRefresh /></p>
+                        </div>
+                        <div className="control-button" onClick={() => this.handleControl("home")}>
+                            <p className="control-button-icon"><IoIosHome /></p>
+                        </div>
+                    </div>
+                </li>
+            )
+        }
+    }
+
+    handleClick(input) {
+        let message = this.options[input];  
+        
+        if (message.link && this.props.message.children.length === 1) {
+            window.open(message.link, '_blank');
         } else {
-            this.props.sendMessage(node.title);
+            this.props.sendMessage(message.title);
+        }
+    }
+
+    handleControl(input) {
+        let message = this.props.message;
+        let parentMessage;
+        console.log(message);
+        if (input === "return") {
+            if (message.parent) { parentMessage = this.options[message.parent] }
+            this.props.redirect(parentMessage);
+        } else if (input === "home") {
+            this.props.redirect(this.options.home);
         }
     }
 
