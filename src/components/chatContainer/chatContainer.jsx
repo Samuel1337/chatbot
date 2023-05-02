@@ -73,7 +73,7 @@ class ChatContainer extends React.Component {
 
     camelize(text) {
         if (text.includes('&')) {
-            let temp = text.split('&').join(' ');
+            let temp = text.split(' & ').join(' ');
             text = temp;
         }    
         let array = text.toLowerCase().split(' ');
@@ -118,15 +118,16 @@ class ChatContainer extends React.Component {
         
         window.setTimeout(() => {
             conversation.push({loading: true});
+            if (response.title) {
+                console.log(response.title)
+                this.props.handleCurrent(this.camelize(response.title));
+            }
             this.setState({conversation: conversation});
             this.scrollSmoothlyToBottom();
         }, 500);
 
         window.setTimeout(() => {
             conversation.pop()
-            if (response.title) {
-                this.props.handleCurrent(this.camelize(response.title));
-            }
             conversation.push(response);
             this.setState({conversation: conversation});
             this.scrollSmoothlyToBottom();
