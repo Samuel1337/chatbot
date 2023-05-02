@@ -1,7 +1,7 @@
 import React from "react";
 import ChatButton from "../chatButton/chatButton";
 import ChatBox from "../chatBox/chatBox";
-import Options from "../../options";
+import Options from "./options";
 import $ from "jquery";
 
 class ChatContainer extends React.Component {
@@ -21,6 +21,7 @@ class ChatContainer extends React.Component {
         this.getInitialMessage = this.getInitialMessage.bind(this);
         this.scrollSmoothlyToBottom = this.scrollSmoothlyToBottom.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.camelize = this.camelize.bind(this);
         this.respond = this.respond.bind(this);
         this.redirect = this.redirect.bind(this);
         this.randomText = this.randomText.bind(this);
@@ -70,6 +71,17 @@ class ChatContainer extends React.Component {
         this.respond();
     }
 
+    camelize(text) {
+        let array = text.toLowerCase().split(' ');
+        return array.map(word => {
+            if (word === array[0]) {
+                return word;
+            } else {
+                return word[0].toUpperCase() + word.slice(1);
+            }
+        }).join('');
+    }
+
     respond() {
         let conversation = [...this.state.conversation];
         let lastMessage = conversation[conversation.length - 1].text;
@@ -108,6 +120,9 @@ class ChatContainer extends React.Component {
 
         window.setTimeout(() => {
             conversation.pop()
+            if (response.title) {
+                this.props.handleCurrent(this.camelize(response.title));
+            }
             conversation.push(response);
             this.setState({conversation: conversation});
             this.scrollSmoothlyToBottom();
@@ -117,6 +132,9 @@ class ChatContainer extends React.Component {
     redirect(message, addon) {
         let conversation = [...this.state.conversation];
         if (addon === "linebreak") { conversation.push({linebreak: true}) }
+        if (message.title) {
+            this.props.handleCurrent(this.camelize(message.title));
+        }
         conversation.push(message);
         
         this.setState({conversation: conversation});

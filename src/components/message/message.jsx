@@ -2,7 +2,7 @@ import React from "react";
 import "./message.scss";
 import { IoIosRefresh, IoIosHome } from "react-icons/io";
 import { HiExternalLink } from "react-icons/hi";
-import Options from "../../options";
+import Options from "../chatContainer/options";
 
 class Message extends React.Component {
     constructor(props) {
