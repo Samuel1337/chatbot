@@ -73,7 +73,7 @@ class ChatContainer extends React.Component {
 
     camelize(text) {
         if (text.includes('&')) {
-            let temp = text.split('&').join('');
+            let temp = text.split('&').join(' ');
             text = temp;
         }    
         let array = text.toLowerCase().split(' ');
